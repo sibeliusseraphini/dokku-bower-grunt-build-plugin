@@ -3,7 +3,7 @@
 TYPE=$(hostname | cut -c1-3)"Gce"
 
 APP="$1"; IMAGE="dokku/$APP"
-echo "-----> Building Grunt app ..."
+echo "-----> Building Grunt $APP $TYPE..."
 COMMAND=$(cat <<EOF
 cd "/app" &&
 new_path="\$(find / -name npm | head -1 | xargs -I % sh -c "dirname %")" &&
