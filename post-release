@@ -2,6 +2,10 @@
 
 TYPE=$(hostname | cut -c1-3)"Gce"
 
+if [ "$TYPE" == "proGce" ]; then
+    TYPE="prodGce"
+fi
+
 APP="$1"; IMAGE="dokku/$APP"
 echo "-----> Building Grunt $APP $TYPE..."
 COMMAND=$(cat <<EOF
