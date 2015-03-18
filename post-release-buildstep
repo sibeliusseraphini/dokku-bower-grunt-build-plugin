@@ -13,13 +13,8 @@ cd "/app" &&
 new_path="\$(find / -name npm | head -1 | xargs -I % sh -c "dirname %")" &&
 PATH="\$PATH:\$new_path" &&
 PATH="\$PATH:\$(npm bin)" &&
-npm install -g grunt &&
-npm install -g grunt-cli &&
-npm install -g bower &&
-npm update &&
 npm install &&
 bower --allow-root install &&
-bower --allow-root update &&
 grunt build:$TYPE --force
 EOF
 )

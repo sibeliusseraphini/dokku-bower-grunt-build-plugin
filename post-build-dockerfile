@@ -1,0 +1,22 @@
+#!/bin/bash
+
+APP="$1"; IMAGE="dokku/$APP"
+echo "-----> Building Grunt $APP $TYPE..."
+COMMAND=$(cat <<EOF
+cd "/app" &&
+new_path="\$(find / -name npm | head -1 | xargs -I % sh -c "dirname %")" &&
+PATH="\$PATH:\$new_path" &&
+PATH="\$PATH:\$(npm bin)" &&
+npm install -g grunt &&
+npm install -g grunt-cli &&
+npm install -g bower &&
+npm install &&
+bower --allow-root install &&
+EOF
+)
+
+id=$(docker run -d $IMAGE /bin/bash -c "$COMMAND")
+docker attach $id
+test $(docker wait $id) -eq 0
+docker commit $id $IMAGE > /dev/null
+echo "-----> Built Grunt"
